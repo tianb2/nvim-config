@@ -41,7 +41,14 @@ local plugins = {
     dependencies = { 'nvim-lua/plenary.nvim' }
   },
   -- tree-sitter for the parsers
-  {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"}
+  {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
+  -- good old nerdtree for the file system
+  'preservim/nerdtree',
+  -- good old fugitive for git
+  'tpope/vim-fugitive',
+  'tpope/vim-rhubarb', -- for :GB
+  -- for comments
+  'tpope/vim-commentary',
 }
 local opts = {}
 
@@ -58,6 +65,8 @@ vim.keymap.set('n', '<leader>fg', builtin.live_grep, {}) -- search for text in f
 vim.keymap.set('n', '<C-g>', builtin.live_grep, {}) -- another option
 vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+-- common bindings
+vim.keymap.set('n', '<leader>w', ':w<CR>') -- <leader> + w to write
 
 -- setup treesitter
 require'nvim-treesitter.configs'.setup {
@@ -71,3 +80,7 @@ require'nvim-treesitter.configs'.setup {
   highlight = { enable = true },
   indent = { enable = true },
 }
+
+-- setup nerdtree
+vim.keymap.set('n', '<C-k><C-n>', ':NERDTreeToggle<CR>')
+vim.keymap.set('n', '<C-k><C-e>', ':NERDTreeFind<CR>')
