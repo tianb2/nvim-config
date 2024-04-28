@@ -21,6 +21,9 @@ return {
 		"neovim/nvim-lspconfig",
 		lazy = false,
 		config = function()
+      -- for cmp_nvim_lsp
+			local capabilities = require('cmp_nvim_lsp').default_capabilities()
+
 			-- lspconfig
 			local lspconfig = require("lspconfig")
 
@@ -28,10 +31,15 @@ return {
 				-- Server-specific settings. See `:help lspconfig-setup`
 				settings = {
 					["rust-analyzer"] = {},
+          capabilities = capabilities
 				},
 			})
-			lspconfig.lua_ls.setup({})
-			lspconfig.tsserver.setup({})
+			lspconfig.lua_ls.setup({
+          capabilities = capabilities
+      })
+			lspconfig.tsserver.setup({
+          capabilities = capabilities
+      })
 
 			vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, {})
