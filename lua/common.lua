@@ -8,7 +8,7 @@ vim.cmd("set shiftwidth=2")
 
 vim.cmd("set number")
 
-vim.g.mapleader = " "
+vim.g.mapleader = ","
 -- common bindings
 vim.keymap.set('n', '<leader>w', ':w<CR>') -- <leader> + w to write
 
