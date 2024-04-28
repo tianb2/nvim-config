@@ -55,6 +55,13 @@ local plugins = {
   {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' }
+  },
+  -- mason for managing lsp, dap, linters, formatters
+  -- and also mason-lspconfig that bridges mason with the lspconfig plugin
+  {
+    "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
+    "neovim/nvim-lspconfig",
   }
 }
 local opts = {}
@@ -135,3 +142,26 @@ require('lualine').setup {
   inactive_winbar = {},
   extensions = {}
 }
+
+-- setup mason
+require("mason").setup()
+
+-- mason lspconfig
+require("mason-lspconfig").setup {
+    ensure_installed = { "lua_ls", "rust_analyzer" },
+}
+
+-- lspconfig
+local lspconfig = require('lspconfig')
+
+lspconfig.rust_analyzer.setup {
+  -- Server-specific settings. See `:help lspconfig-setup`
+  settings = {
+    ['rust-analyzer'] = {},
+  },
+}
+lspconfig.lua_ls.setup({})
+
+vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
+vim.keymap.set('n', 'gd', vim.lsp.buf.definition, {})
+vim.keymap.set({'n','v'}, '<leader>ca', vim.lsp.buf.code_action, {})
