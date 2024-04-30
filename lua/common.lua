@@ -11,4 +11,5 @@ vim.cmd("set number")
 vim.g.mapleader = ","
 -- common bindings
 vim.keymap.set('n', '<leader>w', ':w<CR>') -- <leader> + w to write
+vim.keymap.set('i', 'jj', '<Esc>') -- jj to escape
 
